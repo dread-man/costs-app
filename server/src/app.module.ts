@@ -5,6 +5,7 @@ import { MongooseConfigService } from './config/MongooseConfigService';
 import configuration from './config/configuration';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { CostsModule } from './costs/costs.module';
 
 @Module({
     imports: [
@@ -17,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
         }),
         UsersModule,
         AuthModule,
+		CostsModule,
     ],
 })
 export class AppModule {}

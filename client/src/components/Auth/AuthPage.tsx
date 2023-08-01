@@ -1,7 +1,11 @@
+import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './AuthPage.module.scss'
 
+
 export const AuthPage = ({ type }: { type: 'login' | 'registration' }) => {
+	const [spinner, setSpinner] = useState<boolean>(false)
+	const usernameRef = useRef()
     const currentAuthTitle = type === 'login' ? 'Sign In' : 'Register'
 
     return (

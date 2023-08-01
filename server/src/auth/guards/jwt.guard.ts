@@ -7,6 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 
+
 @Injectable()
 export class JwtGuard implements CanActivate {
     constructor(private authService: AuthService) {}
@@ -32,3 +33,24 @@ export class JwtGuard implements CanActivate {
         return (request.token = token);
     }
 }
+
+// @Injectable()
+// export class JwtGuard2 implements CanActivate {
+// 	constructor(private authService: AuthService) {}
+// 	async canActivate(
+//         context: ExecutionContext,
+//         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//         // @ts-ignore
+//     ): boolean | Promise<boolean> | Observable<boolean> {
+
+// 		const token 
+
+
+
+
+// 	}
+
+
+	
+
+// }

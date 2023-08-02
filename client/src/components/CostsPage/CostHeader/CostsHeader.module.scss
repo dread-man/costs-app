@@ -1,0 +1,25 @@
+form {
+	align-items: flex-end;
+
+	.fromItem {
+		margin-right: 10px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.addBtn {
+		position: relative;
+		min-height: 38px;
+		min-width: 96px;
+	}
+}
+
+.totalDiv {
+	text-align: end;
+
+
+	span {
+		font-size: 20px;
+	}
+}
+

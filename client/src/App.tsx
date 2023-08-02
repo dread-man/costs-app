@@ -1,4 +1,3 @@
-import React from 'react'
 import { Header } from './components/Header/Header'
 import { AuthPage } from './components/Auth/AuthPage'
 import {
@@ -11,6 +10,7 @@ import { useStore } from 'effector-react'
 import { $auth } from './context/auth'
 import { $alert } from './context/alert'
 import { Alert } from './components/Alert/Alert'
+import { CostsPage } from './components/CostsPage/CostPage'
 
 function App() {
     const isLoggedIn = useStore($auth)
@@ -56,9 +56,7 @@ function App() {
                         path="/costs"
                         element={
                             isLoggedIn ? (
-                                <div className="container">
-                                    <h1>A list of costs</h1>
-                                </div>
+                              <CostsPage/>
                             ) : (
                                 <Navigate to={'/login'} />
                             )

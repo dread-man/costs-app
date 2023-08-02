@@ -34,7 +34,7 @@ export class AuthController {
         );
 
         res.statusCode = HttpStatus.OK;
-        return res.send({ ...access, ...refresh, userName: user.username });
+        return res.send({ ...access, ...refresh, username: user.username });
     }
 
     @UseGuards(RegistrationGuard)

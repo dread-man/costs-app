@@ -9,13 +9,17 @@ import {
 } from 'react-router-dom'
 import { useStore } from 'effector-react'
 import { $auth } from './context/auth'
+import { $alert } from './context/alert'
+import { Alert } from './components/Alert/Alert'
 
 function App() {
     const isLoggedIn = useStore($auth)
+	const alert = useStore($alert)
 
     return (
         <div className="App">
             <Header />
+			{alert.alertText && <Alert props={alert}/>}
             <Router>
                 <Routes>
                     <Route

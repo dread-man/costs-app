@@ -1,5 +1,5 @@
 import { createEffect } from 'effector'
-import { ICreateCost, IGetCost, IRefreshToken } from '../types'
+import { ICreateCost, IDeleteCost, IGetCost, IRefreshToken, IUpdateCost } from '../types'
 import api from './axiosClient'
 import { removeUser } from '../utils/auth'
 import { handleAxiosError } from '../utils/errors'
@@ -15,10 +15,27 @@ export const createCostFx = createEffect(
 
             return data
         } catch (error) {
-            console.log(error)
+            handleAxiosError(error, { type: 'create', createCost: { cost } })
         }
     }
 )
+
+export const updateCostFx = createEffect(
+    async ({ url, cost, token, id }: IUpdateCost) => {
+        try {
+            const { data } = await api.patch(
+                `${url}/${id}`,
+                { ...cost },
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+
+            return data
+        } catch (error) {
+            handleAxiosError(error, { type: 'update', updateCost: { cost, id } })
+        }
+    }
+)
+
 
 export const getCostFx = createEffect(async ({ url, token }: IGetCost) => {
     try {
@@ -31,6 +48,18 @@ export const getCostFx = createEffect(async ({ url, token }: IGetCost) => {
         handleAxiosError(error, { type: 'get' })
     }
 })
+
+export const deleteCostFx = createEffect(
+    async ({ url, token, id }: IDeleteCost) => {
+        try {
+            await api.delete(`${url}/${id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+        } catch (error) {
+            handleAxiosError(error, { type: 'delete', deleteCost: { id }  })
+        }
+    }
+)
 
 export const refreshTokenFx = createEffect(
     async ({ url, token, username }: IRefreshToken) => {

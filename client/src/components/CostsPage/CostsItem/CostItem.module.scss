@@ -1,27 +1,31 @@
-.costItem {
-	color: white;
+li {
+    .costItemLeft {
+        display: grid;
+        grid-template-columns: 77px 1fr 1fr;
+        grid-gap: 8px;
+        align-items: center;
+    }
 
-	.costItemLeft {
-		// color: white;
+    .costItemRight {
+        align-items: center;
+        .costItemPriceInput {
+            margin-right: 15px;
+        }
 
-		.costDate {
-			color: white;
-		}
-	}
+        .btnBlockInner {
+            display: flex;
 
-	.costItemRight {
-		.costDate {
-			color: white;
-		}
+            .btnSave {
+                margin-right: 7px;
+            }
 
-		.btnEdit {
+            .btnCancel {
 
-		}
+            }
+        }
 
-		.btnDelete {
-			
-		}
-	}
-
-
+        .btnEdit {
+            margin-right: 7px !important;
+        }
+    }
 }

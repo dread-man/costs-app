@@ -18,8 +18,8 @@ export const validationInputs = (
 
 	const addDangerBorderByCondition = () => 
 	inputs.forEach(input => input.value.length
-		? input.classList.remove('border-danger')
-		: input.classList.add('border-danger'))
+		? input.classList.remove('border-danger', 'border')
+		: input.classList.add('border-danger', 'border'))
 		
 	if(!textInputValue || !priceInputValue || !dateInputValue) {
 		handleAlertMessage({alertText: 'Input all fields', alertStatus: 'warning'})

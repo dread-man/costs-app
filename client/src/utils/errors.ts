@@ -1,8 +1,14 @@
-import { IHandleAxiosErrorPayload } from '../types'
+import { ICost, IHandleAxiosErrorPayload } from '../types'
 import { AxiosError } from 'axios'
 import { getAuthDataFromLS, handleAlertMessage, removeUser } from './auth'
-import { getCostFx, refreshTokenFx } from '../api/costsClient'
-import { setCosts } from '../context'
+import {
+    createCostFx,
+    deleteCostFx,
+    getCostFx,
+    refreshTokenFx,
+	updateCostFx,
+} from '../api/costsClient'
+import { createCost, setCosts, updatedCost } from '../context'
 
 export const handleAxiosError = async (
     error: unknown,
@@ -33,7 +39,49 @@ export const handleAxiosError = async (
 
                         setCosts(costs)
                         break
+                    case 'create':
+                        const cost = await createCostFx({
+                            url: '/cost',
+                            token: authData.access_token,
+                            cost: { ...payloadData.createCost?.cost } as ICost,
+                        })
 
+                        if (!cost) {
+                            return
+                        }
+
+                        createCost(cost)
+                        handleAlertMessage({
+                            alertText: 'Created success',
+                            alertStatus: 'success',
+                        })
+                        break
+                    case 'update':
+                        const editedCost = await updateCostFx({
+                            url: '/cost',
+                            token: authData.access_token,
+                            cost: { ...payloadData.updateCost?.cost } as ICost,
+							id: payloadData.updateCost?.id as string
+                        })
+
+                        if (!editedCost) {
+                            return
+                        }
+
+                        updatedCost(editedCost)   //   updatedCost(cost)
+                        handleAlertMessage({
+                            alertText: 'Created success',
+                            alertStatus: 'success',
+                        })
+                        break
+                    case 'delete':
+                        await deleteCostFx({
+                            url: '/cost',
+                            token: authData.access_token,
+                            id: payloadData.deleteCost?.id as string,
+                        })
+
+                        break
                     default:
                         break
                 }

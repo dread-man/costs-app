@@ -1,7 +1,6 @@
 import { $username } from '../../context/auth'
 import { useStore } from 'effector-react'
 import { useTheme } from '../../hooks'
-import { useEffect } from 'react'
 
 export const Header = () => {
     const { switchTheme, theme } = useTheme()

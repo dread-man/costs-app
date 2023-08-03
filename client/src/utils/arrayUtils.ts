@@ -1,7 +1,7 @@
 import { setTotalPrice } from '../context'
-import { ICosts } from '../types'
+import { ICost } from '../types'
 
-export const countTotalPrice = (costs: ICosts[]) => {
+export const countTotalPrice = (costs: ICost[]) => {
     if (costs === undefined) return
     setTotalPrice(
         costs.reduce((defaultCount, item) => defaultCount + item.price, 0)

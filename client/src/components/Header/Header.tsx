@@ -1,10 +1,12 @@
-import { $username } from '../../context/auth'
+import { $auth, $username } from '../../context/auth'
 import { useStore } from 'effector-react'
 import { useTheme } from '../../hooks'
+import { removeUser } from '../../utils/auth'
 
 export const Header = () => {
     const { switchTheme, theme } = useTheme()
     const username = useStore($username)
+	const loggedIn = useStore($auth)
 
     return (
         <header
@@ -25,6 +27,7 @@ export const Header = () => {
                 >
                     {theme === 'dark' ? 'Go light' : 'Go dark'}
                 </button>
+				{loggedIn && <button onClick={removeUser} className='btn btn-primary'>Log out</button> }
             </div>
         </header>
     )

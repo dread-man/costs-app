@@ -9,29 +9,32 @@ export class AuthClient {
 
             if (result.status === 200) {
                 setAuth(true)
-				setUsername(result.data.username)
+                setUsername(result.data.username)
                 localStorage.setItem('auth', JSON.stringify(result.data))
-				return true
+                return true
             }
 
-			return false
+            return false
         } catch (error) {
-			handleAxiosError(error)
+            handleAxiosError(error)
         }
     }
 
-	static async registration(username: string, password: string) {
+    static async registration(username: string, password: string) {
         try {
-            const result = await api.post('/auth/registration', { username, password })
+            const result = await api.post('/auth/registration', {
+                username,
+                password,
+            })
 
             if (result.status === 201) {
                 setAuth(false)
-				return true
+                return true
             }
 
-			return false
+            return false
         } catch (error) {
-			handleAxiosError(error)
+            handleAxiosError(error)
         }
     }
 }

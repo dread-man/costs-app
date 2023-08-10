@@ -16,7 +16,7 @@ export const CostsPage: React.FC = () => {
 
     useEffect(() => {
         if (shouldLoadCosts.current) {
-			shouldLoadCosts.current = false
+            shouldLoadCosts.current = false
             handleGetCosts()
             console.log(store)
         }
@@ -38,11 +38,23 @@ export const CostsPage: React.FC = () => {
     return (
         <div className="container">
             <h2 className={styles.mainTitle}>My Costs</h2>
-			{useMemo(() => <CostHeader costs={store} />, [store])}
+            {useMemo(
+                () => (
+                    <CostHeader costs={store} />
+                ),
+                [store]
+            )}
             <div style={{ position: 'relative' }}>
                 {spinner && <Spinner top={0} left={0} />}
-				{useMemo(() => <CostsList costs={store}/>, [store])}
-				{(!spinner && !store.length) && <h2>List of expenses is empty</h2> }
+                {useMemo(
+                    () => (
+                        <CostsList costs={store} />
+                    ),
+                    [store]
+                )}
+                {!spinner && !store.length && (
+                    <h2>List of expenses is empty</h2>
+                )}
             </div>
         </div>
     )

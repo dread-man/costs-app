@@ -27,9 +27,9 @@ export const CostHeader: React.FC<ICostsHeaderProps> = ({
         event.preventDefault()
         setSpinner(true)
 
-		const textInputValue = textRef.current.value
-		const priceInputValue = priceRef.current.value
-		const dateInputValue = dateRef.current.value
+        const textInputValue = textRef.current.value
+        const priceInputValue = priceRef.current.value
+        const dateInputValue = dateRef.current.value
 
         if (!validationInputs(textRef, priceRef, dateRef)) {
             setSpinner(false)
@@ -41,21 +41,24 @@ export const CostHeader: React.FC<ICostsHeaderProps> = ({
         const cost = await createCostFx({
             url: '/cost',
             cost: {
-                text:textInputValue,
+                text: textInputValue,
                 price: parseInt(priceInputValue),
                 date: dateInputValue,
             },
-			token: authData.access_token
+            token: authData.access_token,
         })
 
-		if(!cost) {
-			setSpinner(false)
-			return
-		}
+        if (!cost) {
+            setSpinner(false)
+            return
+        }
 
-		setSpinner(false)
-		createCost(cost)
-		handleAlertMessage({ alertText: 'Created success', alertStatus: 'success' })
+        setSpinner(false)
+        createCost(cost)
+        handleAlertMessage({
+            alertText: 'Created success',
+            alertStatus: 'success',
+        })
     }
 
     return (

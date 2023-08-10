@@ -12,84 +12,89 @@ export const CostsItem: React.FC<ICostsItemProps> = ({
     cost,
     index,
 }: ICostsItemProps) => {
-	const [edit, setEdit] = useState(false);
-    const [deleteSpinner, setDeleteSpinner] = useState(false);
-    const [editSpinner, setEditSpinner] = useState(false);
-    const [newText, setNewText] = useState(cost.text);
-    const [newPrice, setNewPrice] = useState<string | number>(cost.price);
-    const [newDate, setNewDate] = useState(cost.date);
-    const textRef = useRef() as MutableRefObject<HTMLInputElement>;
-    const priceRef = useRef() as MutableRefObject<HTMLInputElement>;
-    const dateRef = useRef() as MutableRefObject<HTMLInputElement>;
+    const [edit, setEdit] = useState(false)
+    const [deleteSpinner, setDeleteSpinner] = useState(false)
+    const [editSpinner, setEditSpinner] = useState(false)
+    const [newText, setNewText] = useState(cost.text)
+    const [newPrice, setNewPrice] = useState<string | number>(cost.price)
+    const [newDate, setNewDate] = useState(cost.date)
+    const textRef = useRef() as MutableRefObject<HTMLInputElement>
+    const priceRef = useRef() as MutableRefObject<HTMLInputElement>
+    const dateRef = useRef() as MutableRefObject<HTMLInputElement>
 
-    const handleChangeText = (event: React.ChangeEvent<HTMLInputElement>) => setNewText(event.target.value);
-    const handleChangePrice = (event: React.ChangeEvent<HTMLInputElement>) => setNewPrice(event.target.value);
-    const handleChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => setNewDate(event.target.value);
+    const handleChangeText = (event: React.ChangeEvent<HTMLInputElement>) =>
+        setNewText(event.target.value)
+    const handleChangePrice = (event: React.ChangeEvent<HTMLInputElement>) =>
+        setNewPrice(event.target.value)
+    const handleChangeDate = (event: React.ChangeEvent<HTMLInputElement>) =>
+        setNewDate(event.target.value)
 
-    const allowEditCost = () => setEdit(true);
+    const allowEditCost = () => setEdit(true)
 
     const cancelEditCost = () => {
-        setEditSpinner(false);
+        setEditSpinner(false)
         setEdit(false)
-    };
+    }
 
     const handleEditCost = async () => {
-        setEditSpinner(true);
+        setEditSpinner(true)
 
         if (
             newText === cost.text &&
             +newPrice === +cost.price &&
             newDate === cost.date
         ) {
-            setEditSpinner(false);
-            setEdit(false);
-            return;
+            setEditSpinner(false)
+            setEdit(false)
+            return
         }
 
-        if (!validationInputs(
-            textRef,
-            priceRef,
-            dateRef
-        )) {
-            setEditSpinner(false);
-            return;
+        if (!validationInputs(textRef, priceRef, dateRef)) {
+            setEditSpinner(false)
+            return
         }
 
-        const authData = getAuthDataFromLS();
+        const authData = getAuthDataFromLS()
 
         const editedCost = await updateCostFx({
             url: '/cost',
             token: authData.access_token,
             cost: { text: newText, price: +newPrice, date: newDate },
-            id: cost._id as string
-        });
+            id: cost._id as string,
+        })
 
         if (!editedCost) {
-            setEditSpinner(false);
-            setEdit(false);
-            return;
+            setEditSpinner(false)
+            setEdit(false)
+            return
         }
 
-        setEdit(false);
-        setEditSpinner(false);
-        updatedCost(editedCost);
-        handleAlertMessage({ alertText: 'Successfully updated!', alertStatus: 'success' });
+        setEdit(false)
+        setEditSpinner(false)
+        updatedCost(editedCost)
+        handleAlertMessage({
+            alertText: 'Successfully updated!',
+            alertStatus: 'success',
+        })
     }
 
     const deleteCost = async () => {
-        setDeleteSpinner(true);
+        setDeleteSpinner(true)
 
-        const authData = getAuthDataFromLS();
+        const authData = getAuthDataFromLS()
 
         await deleteCostFx({
             url: '/cost',
             token: authData.access_token,
-            id: cost._id as string
-        });
+            id: cost._id as string,
+        })
 
-        setDeleteSpinner(false);
-        removeCost(cost._id as string);
-        handleAlertMessage({ alertText: 'Successfully removed!', alertStatus: 'success' })
+        setDeleteSpinner(false)
+        removeCost(cost._id as string)
+        handleAlertMessage({
+            alertText: 'Successfully removed!',
+            alertStatus: 'success',
+        })
     }
     return (
         <li
@@ -142,7 +147,10 @@ export const CostsItem: React.FC<ICostsItemProps> = ({
                 )}
                 {edit ? (
                     <div className={styles.btnBlockInner}>
-                        <button className={`btn btn-success ${styles.btnSave}`} onClick={handleEditCost}>
+                        <button
+                            className={`btn btn-success ${styles.btnSave}`}
+                            onClick={handleEditCost}
+                        >
                             {editSpinner ? (
                                 <Spinner top={5} left={38} />
                             ) : (
